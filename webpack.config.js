@@ -94,6 +94,14 @@ module.exports = {
           }
         ]
       },
+      { // 处理ts
+        test: /\.ts$/,
+        loader: 'ts-loader',
+        exclude: /node_modules/,
+        options: {
+          appendTsSuffixTo: [/\.vue$/]
+        }
+      },
       {
         // 转译 es6 代码为 es5 代码
         test: /\.js$/,
