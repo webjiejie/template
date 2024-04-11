@@ -1,0 +1,15 @@
+{
+    "presets": [
+      "env"
+    ]
+    // 用于配置Babel的按需引入组件
+    // "plugins": [
+    //   [
+    //     "component",
+    //     {
+    //       "libraryName": "element-ui",
+    //       "styleLibraryName": "theme-chalk"
+    //     }
+    //   ]
+    // ]
+}
