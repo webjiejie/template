@@ -20,7 +20,7 @@ const envConfig = getEnvConfig();
 
 module.exports = {
   mode:process.env.NODE_ENV, //当前环境
-  entry: path.join(__dirname, './src/main.js'), // 项目总入口 js 文件
+  entry: path.join(__dirname, './src/main.ts'), // 项目总入口 js 文件
   // 输出文件
   output: {
     publicPath:envConfig.VUE_APP_BASE_MYROUTER+'/',
@@ -117,7 +117,7 @@ module.exports = {
     alias: { //设置路径别名
       '@': path.resolve(__dirname, 'src'),
     },
-    extensions: ['.js', '.json', '.vue'] // 自动解析文件后缀
+    extensions: ['.js', '.json', '.vue', '.ts'] // 自动解析文件后缀
   },
   plugins: [
     //将css打包到指定的css/下

@@ -1,12 +1,12 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-const files = require.context('./modules', true, /\.js$/);
+const files = require.context('./modules', true, /\.ts$/);
 
 //自动获取modules文件夹下的文件加入modules
-const modules = {};
+const modules:Record<string,any> = {};
 files.keys().forEach(key => {
-    let k= key.replace(/(\.\/|\.js)/g, '')
+    let k= key.replace(/(\.\/|\.ts)/g, '')
     modules[k] = files(key).default
 })
 

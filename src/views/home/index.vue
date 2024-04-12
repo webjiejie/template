@@ -6,17 +6,18 @@
     </div>
   </template>
   
-  <script>
-  
-  
+  <script lang="ts">
   export default {
     name: 'home',
     created(){
-        console.log(this.$store.state)
+        let num:string = "1";
+        console.log(num)
+
     },
+
     methods:{
         jump(){
-            this.$router.push("/login")
+            (this as any).$router.push("/login")
         }
     }
   }

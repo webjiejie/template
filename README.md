@@ -29,7 +29,7 @@ yarn run lint
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 
-### 插件说明
+### 插件说明 (部分插件有版本要求，不然会报错)
 #### style-loader 、 css-loader 处理css
 - webpack.config.js的 module.rules 需要加
 #### MiniCssExtractPlugin将css单独打包在一个文件夹中
@@ -38,7 +38,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 #### file-loader 、 url-loader 处理文件图片
 - webpack.config.js的 module.rules 需要加
 
-#### html-webpack-plugin 打包时生成index.html
+#### html-webpack-plugin @types/html-webpack-plugin 打包时生成index.html
 - webpack.config.js的 plugins 添加
 
 #### cross-env 启动命令上设置环境变量

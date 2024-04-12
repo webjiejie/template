@@ -1,9 +1,9 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
+import VueRouter, { RouteConfig } from 'vue-router'
 import Layout from '../views/index.vue'
-import routerconfig from "@/config/config.js"
+import routerconfig from "@/config/config"
 Vue.use(VueRouter)
-const routes = [
+const routes: Array<RouteConfig> = [
   {
     path: '/',
     redirect:'/home',
@@ -12,12 +12,12 @@ const routes = [
       {
         path: '/home',
         name: 'Home',
-        component: ()=>import("@/views/home")
+        component: ()=>import(/* webpackChunkName: "about" */ "@/views/home/index.vue")
       },
       {
         path: '/login',
         name: 'login',
-        component: ()=>import("@/views/login")
+        component: ()=>import(/* webpackChunkName: "about" */ "@/views/login/index.vue")
       },
     ]
   },
