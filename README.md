@@ -65,3 +65,131 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 #### webpack-dev-server 启动本地服务
 -  package.json上的 scripts使用
+
+#### typescript、ts-loader、@types/各种插件 ts需要的
+- webpack.config.js的 plugins 添加
+
+
+### ts的增加需要的配置
+- tsconfig.json、.eslintrc.js、webpack.config.js、src/shims-tsx.d.ts、src/shims-vue.d.ts
+
+### 遇到的问题和解决办法
+#### 1、css文件如何单独打包？
+- 使用mini-css-extract-plugin插件即可
+
+#### 2、图片、视频文件打包时如何单独放一个文件夹
+- webpack.config.js中加
+```javascript
+module:{
+    rules:[
+        ...
+        { //处理图片
+            test: /\.(gif|jpg|jpeg|png|svg)$/i,
+            use: [
+            {
+                loader: 'url-loader',
+                options: {
+                esModule:false, //防止地址变成[object Module]
+                // 当文件大小小于 limit byte 时会把图片转换为 base64 编码的 dataurl，否则返回普通的图片
+                limit: 1024*20, // 20k 以下转为 base64
+                name: '[name]-[hash:7].[ext]', // 图片文件名称加上内容哈希
+                outputPath:'assest/', //存储的位置
+                }
+            }
+            ]
+        },
+        { //处理其他类型的文件
+            test: /\.(docx|doc|woff|woff2|eot|ttf|otf|mov|mp4|webm|ogg|zip)$/i,
+            use: [
+            {
+                loader: 'file-loader', // 将文件输出到指定目录，并返回公共路径的URL（适用于开发环境）
+                options: { 
+                esModule:false, //防止地址变成[object Module]
+                name: '[name].[hash:7].[ext]',
+                outputPath:'assest/', //存储的位置
+                }, // 自定义输出文件名格式等参数
+            }
+            ]
+        },
+    ]
+}
+```
+
+#### 3、js打包时单独放js文件夹
+- webpack.config.js中加
+```javascript
+output:{
+    filename: 'js/bundle-[hash].js' // 输出文件的名称加上 hash 值
+}
+```
+
+#### 4、增加别名@
+- webpack.config.js中加
+```javascript
+resolve: {
+    alias: { //设置路径别名
+      '@': path.resolve(__dirname, 'src'),
+    },
+},
+```
+
+#### 5、引入ts写法
+- 需要安装一些包的@types/包名
+- 在src/下增加shims-vue.d.ts
+```javascript
+declare module '*.vue' {
+  import Vue from 'vue'
+  export default Vue
+}
+```
+- 在src/下增加shims-tsx.d.ts
+```javascript
+import Vue, { VNode } from 'vue'
+
+declare global {
+  namespace JSX {
+    interface Element extends VNode {}
+    interface ElementClass extends Vue {}
+    interface IntrinsicElements {
+      [elem: string]: any
+    }
+  }
+}
+
+```
+- 在tsconfig.json加入
+```javascript
+{
+    ...
+    "moduleResolution": "node",
+    "include": [
+        "src/**/*.ts",
+        "src/**/*.tsx",
+        "src/**/*.vue",
+    ],
+}
+```
+- 页面中使同this.$router或者this.$store时ts会报错
+解决方法一：
+```javascript
+import { defineComponent } from 'vue';
+export default defineComponent({
+name: 'home',
+created(){
+    let num:string = "1";
+    console.log(num,this.$store.state)
+
+},
+
+methods:{
+    jump(){
+        this.$router.push("/login")
+    }
+}
+})
+```
+解决方法二：
+```javascript
+(this as any).$store.state
+(this as any).$router.push("/login")
+```

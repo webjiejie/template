@@ -7,20 +7,21 @@
   </template>
   
   <script lang="ts">
-  export default {
+  import { defineComponent } from 'vue';
+  export default defineComponent({
     name: 'home',
     created(){
         let num:string = "1";
-        console.log(num)
+        console.log(num,this.$store.state)
 
     },
 
     methods:{
         jump(){
-            (this as any).$router.push("/login")
+            this.$router.push("/login")
         }
     }
-  }
+  })
   </script>
   <style lang="scss" scoped>
   .home{
