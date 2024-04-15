@@ -117,7 +117,7 @@ module.exports = {
     alias: { //设置路径别名
       '@': path.resolve(__dirname, 'src'),
     },
-    extensions: ['.js', '.json', '.vue', '.ts'] // 自动解析文件后缀
+    extensions: ['.js', '.ts', '.vue', '.json'] // 自动解析文件后缀（配置该属性之后可以不用在 require 或是 import 的时候加文件扩展名,会依次尝试添加扩展名进行匹配。）
   },
   plugins: [
     //将css打包到指定的css/下
@@ -136,6 +136,7 @@ module.exports = {
   ],
   devServer: {
     port: 9000, // 指定端口号
+    hot:true,
     // history模式下的url会请求到服务器端，但是服务器端并没有这一个资源文件，就会返回404，所以需要配置这一项
     historyApiFallback: {
       index: envConfig.VUE_APP_BASE_MYROUTER+'/index.html' 
