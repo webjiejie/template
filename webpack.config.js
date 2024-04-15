@@ -132,7 +132,7 @@ module.exports = {
       inject: 'body' // 指定插入的 <script> 标签在 body 底部
     }),
     new VueLoaderPlugin(),
-    new CleanWebpackPlugin() //打包时自动清除
+    ...(mode === 'production'?[new CleanWebpackPlugin()]:[]) //打包时自动清除
   ],
   devServer: {
     port: 9000, // 指定端口号
